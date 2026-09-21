@@ -21,9 +21,9 @@ export default function ShayariFooter() {
               '"Nirmala UI", "Kohinoor Devanagari", "Mangal", "Lohit Devanagari", sans-serif',
           }}
         >
-          तेरी आँखों का नशा कुछ ऐसा चढ़ा،
+          &quot;तेरी आँखों का नशा कुछ ऐसा चढ़ा,
           <br />
-          कि फिर कोई और नशा अच्छा नहीं लगा।
+          कि फिर कोई और नशा अच्छा नहीं लगा।&quot;
         </blockquote>
       </div>
     </SectionCard>

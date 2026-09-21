@@ -3,14 +3,16 @@ import Link from "next/link";
 
 import DottedSection from "./dotted-section";
 import { makeField } from "./stars";
-import ThemeToggle from "./theme-toggle";
 
 // Same deterministic star field as the margin starfield — sparse nav specks only.
 const NAV_SPECKS = makeField(88102422, 4);
 
 export default function Navbar() {
   return (
-    <DottedSection className="px-4 py-2.5 select-none sm:px-6" id="navbar">
+    <DottedSection
+      className="px-4 py-2.5 select-none sm:px-6"
+      id="navbar"
+    >
       <nav className="font-sans flex w-full items-center justify-end">
         <div className="nav-sky-bar relative flex items-center gap-3 text-xs font-medium text-neutral-300 sm:gap-4 sm:text-sm">
           <div
@@ -35,13 +37,13 @@ export default function Navbar() {
               />
             ))}
           </div>
+
           <Link
             href="/"
-            className="nav-sky-tab nav-sky-tab--active font-semibold text-neutral-100 underline decoration-neutral-100 underline-offset-4 decoration-2"
+            className="font-semibold text-neutral-100 underline decoration-neutral-100 underline-offset-4 decoration-2"
           >
             Home
           </Link>
-          <ThemeToggle />
         </div>
       </nav>
     </DottedSection>

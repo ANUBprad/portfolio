@@ -9,23 +9,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pradhan-e-portfolio",
-  description: "Personal portfolio of Pradhan-e-portfolio.",
+  title: "Anubhab Pradhan | Developer Portfolio",
+  description: "Personal developer portfolio by Anubhab Pradhan. React, TypeScript enthusiast building accessible web experiences.",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <html
       lang="en"
-      suppressHydrationWarning
       className={`${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}`,
-          }}
-        />
         {children}
       </body>
     </html>

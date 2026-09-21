@@ -17,7 +17,7 @@ const EXPERIENCE = [
     ],
   },
   {
-    company: "Harprana",
+    company: "Hasprana Health Care Soln Pvt Ltd",
     role: "AI Engineer",
     period: "Jul 2026 – Present",
     href: "https://www.haspranahealth.com/",

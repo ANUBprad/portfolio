@@ -100,14 +100,14 @@ const BRIGHT_STARS_LEFT = makeBrightStars(555555, 8);
 const BRIGHT_STARS_RIGHT = makeBrightStars(666666, 8);
 
 // Shooting star positions - diagonal trajectories, deterministic
-// Each star will have its own animation for proper diagonal movement
+// Diagonal angles are applied via CSS transform:rotate(), not actual moveX/moveY props
 const SHOOTING_STARS = [
-  { id: "star-1", left: "15%", top: "-5%", angle: "55deg", moveX: "-7%", moveY: "30%", delay: "3s", duration: "1s" },
-  { id: "star-2", left: "85%", top: "-3%", angle: "235deg", moveX: "-7%", moveY: "25%", delay: "14s", duration: "0.9s" },
-  { id: "star-3", left: "12%", top: "-8%", angle: "45deg", moveX: "10%", moveY: "43%", delay: "28s", duration: "1.1s" },
-  { id: "star-4", left: "88%", top: "-2%", angle: "235deg", moveX: "-13%", moveY: "32%", delay: "42s", duration: "0.95s" },
-  { id: "star-5", left: "10%", top: "-4%", angle: "60deg", moveX: "-5%", moveY: "44%", delay: "58s", duration: "1.2s" },
-  { id: "star-6", left: "90%", top: "-6%", angle: "240deg", moveX: "-8%", moveY: "34%", delay: "76s", duration: "1.05s" },
+  { id: "star-1", left: "15%", top: "-5%", angle: "55deg", delay: "3s", duration: "1s" },
+  { id: "star-2", left: "85%", top: "-3%", angle: "235deg", delay: "14s", duration: "0.9s" },
+  { id: "star-3", left: "12%", top: "-8%", angle: "45deg", delay: "28s", duration: "1.1s" },
+  { id: "star-4", left: "88%", top: "-2%", angle: "235deg", delay: "42s", duration: "0.95s" },
+  { id: "star-5", left: "10%", top: "-4%", angle: "60deg", delay: "58s", duration: "1.2s" },
+  { id: "star-6", left: "90%", top: "-6%", angle: "240deg", delay: "76s", duration: "1.05s" },
 ];
 
 // Side decorative text
@@ -189,7 +189,14 @@ function BrightStarComponent({ star }: { star: BrightStar }) {
   );
 }
 
-function ShootingStar({ id, left, top, angle, moveX, moveY, delay, duration }: any) {
+function ShootingStar({ id, left, top, angle, delay, duration }: {
+  id: string;
+  left: string;
+  top: string;
+  angle: string;
+  delay: string;
+  duration: string;
+}) {
   return (
     <span
       aria-hidden="true"
@@ -267,8 +274,6 @@ export default function Stars() {
             left={star.left}
             top={star.top}
             angle={star.angle}
-            moveX={star.moveX}
-            moveY={star.moveY}
             delay={star.delay}
             duration={star.duration}
           />
