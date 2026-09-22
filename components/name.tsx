@@ -16,11 +16,22 @@ export default function Name({ className }: { className?: string }) {
   const letters = text.split("");
 
   if (reduced) {
-    return <h1 className={className}>Anubhab Pradhan</h1>;
+    return (
+      <h1
+        className={className}
+        style={{ fontFamily: '"Berlin Sans FB Demi", "Century Gothic", "Trebuchet MS", Arial, sans-serif' }}
+      >
+        Anubhab Pradhan
+      </h1>
+    );
   }
 
   return (
-    <h1 className={className} aria-label="Anubhab Pradhan">
+    <h1
+      className={className}
+      aria-label="Anubhab Pradhan"
+      style={{ fontFamily: '"Berlin Sans FB Demi", "Century Gothic", "Trebuchet MS", Arial, sans-serif' }}
+    >
       <motion.span
         className="inline-block"
         variants={{ rest: {}, hover: {} }}

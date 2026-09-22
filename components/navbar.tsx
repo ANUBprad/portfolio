@@ -1,50 +1,39 @@
-import type { CSSProperties } from "react";
 import Link from "next/link";
 
 import DottedSection from "./dotted-section";
-import { makeField } from "./stars";
 
-// Same deterministic star field as the margin starfield — sparse nav specks only.
-const NAV_SPECKS = makeField(88102422, 4);
+type NavbarProps = {
+  activePage?: "home" | "me";
+};
 
-export default function Navbar() {
+export default function Navbar({ activePage = "home" }: NavbarProps) {
   return (
     <DottedSection
       className="px-4 py-2.5 select-none sm:px-6"
       id="navbar"
     >
-      <nav className="font-sans flex w-full items-center justify-end">
-        <div className="nav-sky-bar relative flex items-center gap-3 text-xs font-medium text-neutral-300 sm:gap-4 sm:text-sm">
-          <div
-            aria-hidden="true"
-            className="nav-sky-specks pointer-events-none absolute inset-0"
-          >
-            {NAV_SPECKS.map((star, i) => (
-              <span
-                key={i}
-                className="absolute rounded-full"
-                style={
-                  {
-                    left: star.left,
-                    top: star.top,
-                    width: star.size,
-                    height: star.size,
-                    background: "#fff3e0",
-                    "--star-peak": star.peak,
-                    animation: `star-twinkle ${star.duration} ease-in-out ${star.delay} infinite both`,
-                  } as CSSProperties
-                }
-              />
-            ))}
-          </div>
+      <nav className="font-sans flex w-full items-center justify-end gap-4 sm:gap-5" aria-label="Main navigation">
+        <Link
+          href="/"
+          className={
+            activePage === "home"
+              ? "font-semibold text-neutral-100 underline decoration-neutral-100 underline-offset-4 decoration-2"
+              : "text-neutral-400 transition-colors hover:text-neutral-200"
+          }
+        >
+          HOME
+        </Link>
 
-          <Link
-            href="/"
-            className="font-semibold text-neutral-100 underline decoration-neutral-100 underline-offset-4 decoration-2"
-          >
-            Home
-          </Link>
-        </div>
+        <Link
+          href="/me"
+          className={
+            activePage === "me"
+              ? "font-semibold text-neutral-100 underline decoration-neutral-100 underline-offset-4 decoration-2"
+              : "text-neutral-400 transition-colors hover:text-neutral-200"
+          }
+        >
+          ME
+        </Link>
       </nav>
     </DottedSection>
   );

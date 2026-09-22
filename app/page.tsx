@@ -1,7 +1,6 @@
-import Contact from "@/components/contact";
 import DottedSection from "@/components/dotted-section";
-import DailyQuote from "@/components/daily-quote";
 import Experience from "@/components/experience";
+import BhagavadGita from "@/components/bhagavad-gita";
 import GitHubActivity from "@/components/github-activity";
 import Hero from "@/components/hero";
 import LeetCodeActivity from "@/components/leetcode-activity";
@@ -11,9 +10,9 @@ import Overview from "@/components/overview";
 import Projects from "@/components/projects";
 import Research from "@/components/research";
 import SectionReveal from "@/components/section-reveal";
-import ShayariFooter from "@/components/shayari-footer";
 import Skills from "@/components/skills";
 import Stars from "@/components/stars";
+import WhatIDo from "@/components/what-i-build";
 import WelcomeIntro from "@/components/welcome-intro";
 
 export default function Home() {
@@ -21,38 +20,28 @@ export default function Home() {
     <main className="bg-background font-sans text-neutral-100 relative min-h-screen flex-1 overflow-x-clip py-6 sm:py-10">
       <WelcomeIntro />
       <Stars />
-      <div className="mx-auto flex max-w-5xl justify-center px-3 sm:px-5">
+      <div className="relative z-10 mx-auto flex max-w-5xl justify-center px-3 sm:px-5">
         <div className="flex w-full max-w-2xl flex-col gap-5">
-          <Navbar />
+          <Navbar activePage="home" />
           <Hero />
-          <DottedSection
-            id="overview"
-            title="Overview"
-            className="flex items-center px-3 py-2 sm:px-4"
-          />
           <DottedSection className="px-2 sm:px-3">
             <SectionReveal>
               <Overview />
             </SectionReveal>
           </DottedSection>
-          <DottedSection id="quote" className="px-2 sm:px-3">
-            <SectionReveal>
-              <DailyQuote />
-            </SectionReveal>
-          </DottedSection>
           <DottedSection
-            id="projects"
-            title="Projects"
+            id="what-i-do"
+            title="WHAT I DO"
             className="flex items-center px-3 py-2 sm:px-4"
           />
           <DottedSection className="px-2 sm:px-3">
             <SectionReveal>
-              <Projects />
+              <WhatIDo />
             </SectionReveal>
           </DottedSection>
           <DottedSection
             id="experience"
-            title="Experience"
+            title="EXPERIENCE"
             className="flex items-center px-3 py-2 sm:px-4"
           />
           <DottedSection className="px-2 sm:px-3">
@@ -62,7 +51,7 @@ export default function Home() {
           </DottedSection>
           <DottedSection
             id="skills"
-            title="Skills"
+            title="SKILLS"
             className="flex items-center px-3 py-2 sm:px-4"
           />
           <DottedSection className="px-2 sm:px-3">
@@ -71,8 +60,28 @@ export default function Home() {
             </SectionReveal>
           </DottedSection>
           <DottedSection
+            id="projects"
+            title="PROJECTS"
+            className="flex items-center px-3 py-2 sm:px-4"
+          />
+          <DottedSection className="px-2 sm:px-3">
+            <SectionReveal>
+              <Projects />
+            </SectionReveal>
+          </DottedSection>
+          <DottedSection
+            id="research"
+            title="RESEARCH & PUBLICATIONS"
+            className="flex items-center px-3 py-2 sm:px-4"
+          />
+          <DottedSection className="px-2 sm:px-3">
+            <SectionReveal>
+              <Research />
+            </SectionReveal>
+          </DottedSection>
+          <DottedSection
             id="open-source"
-            title="Open Source"
+            title="OPEN SOURCE"
             className="flex items-center px-3 py-2 sm:px-4"
           />
           <DottedSection className="px-2 sm:px-3">
@@ -82,7 +91,7 @@ export default function Home() {
           </DottedSection>
           <DottedSection
             id="github"
-            title="GitHub Activity"
+            title="GITHUB ACTIVITY"
             className="flex items-center px-3 py-2 sm:px-4"
           />
           <DottedSection className="px-2 sm:px-3">
@@ -92,7 +101,7 @@ export default function Home() {
           </DottedSection>
           <DottedSection
             id="leetcode"
-            title="LeetCode Activity"
+            title="LEETCODE ACTIVITY"
             className="flex items-center px-3 py-2 sm:px-4"
           />
           <DottedSection className="px-2 sm:px-3">
@@ -100,36 +109,7 @@ export default function Home() {
               <LeetCodeActivity />
             </SectionReveal>
           </DottedSection>
-          <DottedSection
-            id="research"
-            title="Research & Publications"
-            className="flex items-center px-3 py-2 sm:px-4"
-          />
-          <DottedSection className="px-2 sm:px-3">
-            <SectionReveal>
-              <Research />
-            </SectionReveal>
-          </DottedSection>
-          <DottedSection
-            id="contact"
-            title="Contact"
-            className="flex items-center px-3 py-2 sm:px-4"
-          />
-          <DottedSection className="px-2 sm:px-3">
-            <SectionReveal>
-              <Contact />
-            </SectionReveal>
-          </DottedSection>
-          <DottedSection
-            id="shayari"
-            title="Sirf uske liye..."
-            className="flex items-center px-3 py-2 sm:px-4"
-          />
-          <DottedSection className="px-2 sm:px-3">
-            <SectionReveal>
-              <ShayariFooter />
-            </SectionReveal>
-          </DottedSection>
+          <BhagavadGita />
         </div>
       </div>
     </main>

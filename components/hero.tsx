@@ -5,12 +5,6 @@ import Greeting from "./greeting";
 import Name from "./name";
 import ThemeBanner from "./theme-banner";
 
-const POINTS = [
-  "Building production-grade AI systems, evaluation pipelines, and developer tools.",
-  "Chess, binge-watching, and travelling are some of my favorite ways to disappear from the terminal.",
-  "Always curious about new ideas, unfamiliar places, and things I haven't figured out yet.",
-];
-
 export default function Hero() {
   return (
     <DottedSection id="header">
@@ -31,17 +25,6 @@ export default function Hero() {
               <Greeting />
             </div>
           </div>
-          <ul className="flex flex-col gap-2 border-t border-dotted border-neutral-800/70 pt-4 text-xs leading-relaxed text-neutral-400 sm:text-sm">
-            {POINTS.map((point) => (
-              <li key={point} className="flex gap-2.5">
-                <span
-                  aria-hidden="true"
-                  className="bg-neutral-500 mt-[0.55em] size-1 shrink-0 rounded-full"
-                />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
     </DottedSection>

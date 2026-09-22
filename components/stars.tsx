@@ -94,13 +94,12 @@ export function makeBrightStars(seed: number, count: number): BrightStar[] {
   }));
 }
 
-const LEFT_FIELD = makeField(20250525, 120);
-const RIGHT_FIELD = makeField(987654321, 120);
-const BRIGHT_STARS_LEFT = makeBrightStars(555555, 8);
-const BRIGHT_STARS_RIGHT = makeBrightStars(666666, 8);
+const LEFT_FIELD = makeField(20250525, 180);
+const RIGHT_FIELD = makeField(987654321, 180);
+const BRIGHT_STARS_LEFT = makeBrightStars(555555, 12);
+const BRIGHT_STARS_RIGHT = makeBrightStars(666666, 12);
 
 // Shooting star positions - diagonal trajectories, deterministic
-// Diagonal angles are applied via CSS transform:rotate(), not actual moveX/moveY props
 const SHOOTING_STARS = [
   { id: "star-1", left: "15%", top: "-5%", angle: "55deg", delay: "3s", duration: "1s" },
   { id: "star-2", left: "85%", top: "-3%", angle: "235deg", delay: "14s", duration: "0.9s" },
@@ -108,31 +107,6 @@ const SHOOTING_STARS = [
   { id: "star-4", left: "88%", top: "-2%", angle: "235deg", delay: "42s", duration: "0.95s" },
   { id: "star-5", left: "10%", top: "-4%", angle: "60deg", delay: "58s", duration: "1.2s" },
   { id: "star-6", left: "90%", top: "-6%", angle: "240deg", delay: "76s", duration: "1.05s" },
-];
-
-// Side decorative text
-const LEFT_TEXT = [
-  { text: "SOMEWHERE", y: "12%" },
-  { text: "BETWEEN", y: "14.5%" },
-  { text: "IDEAS AND", y: "17%" },
-  { text: "INFINITY.", y: "19.5%" },
-  { rule: true, y: "22.5%" },
-  { text: "BUILD", y: "58%" },
-  { text: "EXPLORE", y: "60.5%" },
-  { text: "LEARN", y: "63%" },
-  { text: "REPEAT", y: "65.5%" },
-];
-
-const RIGHT_TEXT = [
-  { text: "A QUIETER", y: "30%" },
-  { text: "MIND BUILDS", y: "32.5%" },
-  { text: "BRIGHTER", y: "35%" },
-  { text: "WORLDS.", y: "37.5%" },
-  { rule: true, y: "40.5%" },
-  { text: "GOOD", y: "72%" },
-  { text: "IDEAS", y: "74.5%" },
-  { text: "TAKE", y: "77%" },
-  { text: "TIME", y: "79.5%" },
 ];
 
 function Field({ stars }: { stars: Star[] }) {
@@ -149,9 +123,9 @@ function Field({ stars }: { stars: Star[] }) {
               top: star.top,
               width: star.size,
               height: star.size,
-              background: `rgba(255, 243, 224, ${star.brightness})`,
-              boxShadow: star.glow 
-                ? `0 0 3px rgba(255, 220, 180, ${star.brightness * 0.6}), 0 0 8px rgba(255, 180, 120, ${star.brightness * 0.3})` 
+              background: `rgba(255, 255, 255, ${star.brightness})`,
+              boxShadow: star.glow
+                ? `0 0 3px rgba(255, 255, 255, ${star.brightness * 0.6}), 0 0 8px rgba(185, 14, 10, ${star.brightness * 0.3})`
                 : "none",
               "--star-peak": star.peak,
               animation: star.twinkle
@@ -177,10 +151,10 @@ function BrightStarComponent({ star }: { star: BrightStar }) {
           top: star.top,
           width: star.size,
           height: star.size,
-          background: "rgba(255, 245, 230, 0.9)",
+          background: "rgba(255, 255, 255, 0.9)",
           boxShadow: star.hasBloom
-            ? `0 0 2px rgba(255, 240, 220, 0.8), 0 0 6px rgba(255, 200, 160, 0.4), 0 0 12px rgba(255, 160, 100, 0.15)`
-            : `0 0 2px rgba(255, 240, 220, 0.6)`,
+            ? `0 0 2px rgba(255, 255, 255, 0.8), 0 0 6px rgba(185, 14, 10, 0.3), 0 0 12px rgba(185, 14, 10, 0.1)`
+            : `0 0 2px rgba(255, 255, 255, 0.6)`,
           "--star-peak": 0.7,
           animation: `star-twinkle ${star.duration} ease-in-out ${star.delay} infinite both`,
         } as CSSProperties
@@ -210,7 +184,7 @@ function ShootingStar({ id, left, top, angle, delay, duration }: {
           pointerEvents: "none",
           transform: `rotate(${angle})`,
           animation: `shooting-star-move ${duration} ease-in ${delay} infinite`,
-          background: "linear-gradient(to bottom, rgba(255, 245, 230, 0.95) 0%, rgba(255, 220, 180, 0.5) 50%, transparent 100%)",
+          background: "linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(185, 14, 10, 0.5) 50%, transparent 100%)",
           opacity: 0,
           transformOrigin: "top center",
         } as CSSProperties
@@ -220,6 +194,10 @@ function ShootingStar({ id, left, top, angle, delay, duration }: {
   );
 }
 
+// ponytail: "calc(50%+16rem)" keeps the side fields visible on laptop viewports.
+// Upgrade path: use container queries or JS-measured offsets for exact column bounds.
+const MARGIN_CLIP = "calc(50% + 16rem)";
+
 export default function Stars() {
   return (
     <div
@@ -227,34 +205,70 @@ export default function Stars() {
       className="cinematic-bg pointer-events-none fixed inset-0 z-0"
     >
       {/* Deep space base with subtle tonal variation */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0908] via-[#0e0d0b] to-[#09080609] opacity-100" />
-      
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-[#050505] to-black opacity-100" />
+
       {/* Nebula layers */}
       <div className="cinematic-nebula absolute inset-0" />
-      
-      {/* Cosmic dust and micro-particles layer */}
+
+      {/* Side nebula glow — deep crimson atmospheric margins */}
+      <div
+        className="absolute inset-y-0 left-0 hidden lg:block pointer-events-none"
+        style={{ right: MARGIN_CLIP }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(ellipse 90% 50% at 10% 25%, rgba(185, 14, 10, 0.16) 0%, transparent 55%),
+              radial-gradient(ellipse 80% 60% at 5% 55%, rgba(185, 14, 10, 0.12) 0%, transparent 50%),
+              radial-gradient(ellipse 70% 45% at 20% 80%, rgba(185, 14, 10, 0.09) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 35% at 30% 40%, rgba(185, 14, 10, 0.05) 0%, transparent 60%)
+            `,
+            animation: "nebula-drift 90s ease-in-out infinite alternate",
+          }}
+        />
+      </div>
+      <div
+        className="absolute inset-y-0 right-0 hidden lg:block pointer-events-none"
+        style={{ left: MARGIN_CLIP }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(ellipse 90% 50% at 90% 30%, rgba(185, 14, 10, 0.14) 0%, transparent 55%),
+              radial-gradient(ellipse 80% 60% at 95% 58%, rgba(185, 14, 10, 0.10) 0%, transparent 50%),
+              radial-gradient(ellipse 70% 45% at 80% 82%, rgba(185, 14, 10, 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 35% at 70% 45%, rgba(185, 14, 10, 0.04) 0%, transparent 60%)
+            `,
+            animation: "nebula-drift 95s ease-in-out infinite alternate 10s",
+          }}
+        />
+      </div>
+
+      {/* Cosmic dust and micro-particles layer — crimson */}
       <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-radial-dust-1" style={{
-          backgroundImage: `radial-gradient(circle at 25% 30%, rgba(180, 100, 80, 0.08) 0%, transparent 40%),
-                           radial-gradient(circle at 75% 60%, rgba(150, 80, 60, 0.06) 0%, transparent 35%)`,
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 8% 30%, rgba(185, 14, 10, 0.12) 0%, transparent 40%),
+                           radial-gradient(circle at 92% 60%, rgba(185, 14, 10, 0.10) 0%, transparent 35%)`,
         }} />
       </div>
 
       {/* Star fields - left and right */}
-      <div className="absolute inset-y-0 left-0 right-[calc(50%+21rem)] overflow-hidden hidden lg:block">
+      <div className="absolute inset-y-0 left-0 overflow-hidden hidden lg:block" style={{ right: MARGIN_CLIP }}>
         <Field stars={LEFT_FIELD} />
       </div>
-      <div className="absolute inset-y-0 right-0 left-[calc(50%+21rem)] overflow-hidden hidden lg:block">
+      <div className="absolute inset-y-0 right-0 overflow-hidden hidden lg:block" style={{ left: MARGIN_CLIP }}>
         <Field stars={RIGHT_FIELD} />
       </div>
 
       {/* Bright stars with bloom - left and right */}
-      <div className="absolute inset-y-0 left-0 right-[calc(50%+21rem)] overflow-hidden hidden lg:block">
+      <div className="absolute inset-y-0 left-0 overflow-hidden hidden lg:block" style={{ right: MARGIN_CLIP }}>
         {BRIGHT_STARS_LEFT.map((star, i) => (
           <BrightStarComponent key={`bright-l-${i}`} star={star} />
         ))}
       </div>
-      <div className="absolute inset-y-0 right-0 left-[calc(50%+21rem)] overflow-hidden hidden lg:block">
+      <div className="absolute inset-y-0 right-0 overflow-hidden hidden lg:block" style={{ left: MARGIN_CLIP }}>
         {BRIGHT_STARS_RIGHT.map((star, i) => (
           <BrightStarComponent key={`bright-r-${i}`} star={star} />
         ))}
@@ -287,8 +301,8 @@ export default function Stars() {
             width: "80px",
             height: "80px",
             borderRadius: "50%",
-            background: "radial-gradient(circle at 30% 35%, rgba(220, 200, 180, 0.2) 0%, transparent 50%)",
-            boxShadow: "inset 15px -12px 8px 0 rgba(8, 7, 5, 0.98), 0 0 20px rgba(200, 140, 100, 0.08)",
+            background: "radial-gradient(circle at 30% 35%, rgba(255, 255, 255, 0.15) 0%, transparent 50%)",
+            boxShadow: "inset 15px -12px 8px 0 rgba(0, 0, 0, 0.98), 0 0 20px rgba(185, 14, 10, 0.06)",
             animation: "nebula-drift 90s ease-in-out infinite alternate",
           }}
         />
@@ -301,9 +315,23 @@ export default function Stars() {
             width: "60px",
             height: "60px",
             borderRadius: "50%",
-            background: "radial-gradient(circle at 28% 32%, rgba(210, 190, 170, 0.15) 0%, transparent 55%)",
-            boxShadow: "inset 12px -9px 6px 0 rgba(8, 7, 5, 0.97), 0 0 15px rgba(180, 120, 80, 0.06)",
+            background: "radial-gradient(circle at 28% 32%, rgba(255, 255, 255, 0.1) 0%, transparent 55%)",
+            boxShadow: "inset 12px -9px 6px 0 rgba(0, 0, 0, 0.97), 0 0 15px rgba(185, 14, 10, 0.04)",
             animation: "nebula-drift 100s ease-in-out infinite alternate 5s",
+          }}
+        />
+      </div>
+
+      {/* Distant asteroid — small, irregular, barely visible in deep space */}
+      <div className="absolute hidden lg:block" style={{ left: "22%", top: "68%", opacity: 0.06 }}>
+        <div
+          style={{
+            width: "12px",
+            height: "9px",
+            borderRadius: "40% 60% 55% 45% / 50% 40% 60% 50%",
+            background: "radial-gradient(circle at 35% 40%, rgba(200, 200, 200, 0.25) 0%, rgba(80, 80, 80, 0.1) 70%, transparent 100%)",
+            boxShadow: "0 0 4px rgba(185, 14, 10, 0.04)",
+            animation: "celestial-drift 120s ease-in-out infinite alternate",
           }}
         />
       </div>
@@ -312,96 +340,28 @@ export default function Stars() {
       <div className="absolute bottom-0 left-0 hidden lg:block" style={{
         width: "35%",
         height: "180px",
-        background: "linear-gradient(to top, rgba(8,7,5,0.3), transparent)",
+        background: "linear-gradient(to top, rgba(0,0,0,0.3), transparent)",
         opacity: 0.15,
         clipPath: "polygon(0 100%, 0 60%, 15% 50%, 35% 70%, 50% 55%, 65% 75%, 100% 65%, 100% 100%)",
       }} />
       <div className="absolute bottom-0 right-0 hidden lg:block" style={{
         width: "35%",
         height: "180px",
-        background: "linear-gradient(to top, rgba(8,7,5,0.3), transparent)",
+        background: "linear-gradient(to top, rgba(0,0,0,0.3), transparent)",
         opacity: 0.15,
         clipPath: "polygon(0 65%, 35% 75%, 50% 55%, 65% 70%, 85% 50%, 100% 60%, 100% 100%, 0 100%)",
       }} />
 
-      {/* Center vignette - darker around portfolio */}
+      {/* Center vignette — darkens only the central column, edges stay visible */}
       <div className="absolute inset-0 hidden lg:block pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 45% 50% at 50% 50%, 
+          background: `radial-gradient(ellipse 35% 50% at 50% 50%,
                         rgba(0,0,0,0) 0%,
-                        rgba(0,0,0,0.3) 60%,
-                        rgba(0,0,0,0.6) 85%,
-                        rgba(0,0,0,0.75) 100%)`,
+                        rgba(0,0,0,0.2) 55%,
+                        rgba(0,0,0,0.45) 80%,
+                        rgba(0,0,0,0.55) 100%)`,
         }}
       />
-
-      {/* Side decorative typography - left */}
-      <div className="absolute inset-y-0 left-0 right-[calc(50%+21rem)] hidden lg:block">
-        {LEFT_TEXT.map((item, i) =>
-          item.rule ? (
-            <div
-              key={i}
-              className="absolute"
-              style={{
-                left: "18%",
-                top: item.y,
-                width: "40px",
-                height: "0.5px",
-                background: "rgba(255,243,224,0.08)",
-              }}
-            />
-          ) : (
-            <span
-              key={i}
-              className="absolute font-mono uppercase tracking-widest text-[9px]"
-              style={{
-                left: "18%",
-                top: item.y,
-                color: "rgba(255,243,224,0.09)",
-                whiteSpace: "nowrap",
-                fontWeight: 300,
-                letterSpacing: "0.3em",
-              }}
-            >
-              {item.text}
-            </span>
-          )
-        )}
-      </div>
-
-      {/* Side decorative typography - right */}
-      <div className="absolute inset-y-0 right-0 left-[calc(50%+21rem)] hidden lg:block">
-        {RIGHT_TEXT.map((item, i) =>
-          item.rule ? (
-            <div
-              key={i}
-              className="absolute"
-              style={{
-                right: "18%",
-                top: item.y,
-                width: "40px",
-                height: "0.5px",
-                background: "rgba(255,243,224,0.08)",
-              }}
-            />
-          ) : (
-            <span
-              key={i}
-              className="absolute font-mono uppercase tracking-widest text-[9px]"
-              style={{
-                right: "18%",
-                top: item.y,
-                color: "rgba(255,243,224,0.09)",
-                whiteSpace: "nowrap",
-                fontWeight: 300,
-                letterSpacing: "0.3em",
-              }}
-            >
-              {item.text}
-            </span>
-          )
-        )}
-      </div>
     </div>
   );
 }
