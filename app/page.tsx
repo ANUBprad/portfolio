@@ -108,6 +108,11 @@ export default function Home() {
             </SectionReveal>
           </DottedSection>
           <BhagavadGita />
+          <footer className="pb-1">
+            <p className="font-mono text-center text-[9px] tracking-widest text-neutral-600 sm:text-[10px]">
+              © 2026 ANUBHAB PRADHAN. All rights reserved.
+            </p>
+          </footer>
         </div>
       </div>
     </main>
