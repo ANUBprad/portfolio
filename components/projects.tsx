@@ -4,14 +4,26 @@ import { siGithub } from "simple-icons";
 
 import { BrandIcon } from "./icons";
 import SectionCard from "./section-card";
-import { HOME_PROJECTS, type Project } from "@/lib/projects";
+import { HOME_PROJECTS, type Project, type ProjectStatus } from "@/lib/projects";
 
 const PLACEHOLDER = "/project-placeholder.svg";
 
-export function ProjectGrid({ projects }: { projects: Project[] }) {
+const STATUS_STYLES: Record<ProjectStatus, string> = {
+  COMPLETED: "text-[#B90E0A]",
+  // literal orange-400 value; palette var was overridden to a stale value in compiled CSS
+  "IN-PROGRESS": "text-[#fb923c]",
+};
+
+export function ProjectGrid({
+  projects,
+  start = 1,
+}: {
+  projects: Project[];
+  start?: number;
+}) {
   return (
     <div className="grid w-full gap-3 sm:grid-cols-2 sm:gap-3.5">
-      {projects.map((project) => (
+      {projects.map((project, index) => (
         <SectionCard key={project.name} className="flex flex-col !rounded-xl p-2">
           <div className="relative aspect-[16/11] w-full overflow-hidden rounded-md border border-[color:var(--frame)] bg-neutral-950 shadow-[0_12px_32px_-16px_rgba(0,0,0,0.75)]">
             <Image
@@ -24,11 +36,18 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
           </div>
           <div className="flex min-h-0 flex-1 flex-col gap-2 p-2.5">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="font-sans text-sm font-bold tracking-tight text-heading">
-                {project.name}
-              </h3>
+              <div className="flex min-w-0 items-baseline gap-2">
+                <span className="font-mono shrink-0 text-[10px] font-semibold text-neutral-600">
+                  {String(start + index).padStart(2, "0")}
+                </span>
+                <h3 className="font-sans text-sm font-bold tracking-tight text-heading">
+                  {project.name}
+                </h3>
+              </div>
               {project.status ? (
-                <span className="border-dotted border-neutral-800 font-mono rounded border px-1.5 py-0.5 text-[10px] text-neutral-500">
+                <span
+                  className={`border-dotted border-neutral-800 font-mono rounded border px-1.5 py-0.5 text-[10px] ${STATUS_STYLES[project.status]}`}
+                >
                   {project.status}
                 </span>
               ) : null}

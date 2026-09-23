@@ -24,7 +24,7 @@ export default function ProjectsPage() {
           />
           <DottedSection className="px-2 sm:px-3">
             <SectionReveal>
-              <ProjectGrid projects={MORE_PROJECTS} />
+              <ProjectGrid projects={MORE_PROJECTS} start={3} />
             </SectionReveal>
           </DottedSection>
         </div>
