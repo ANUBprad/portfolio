@@ -10,8 +10,7 @@ const PLACEHOLDER = "/project-placeholder.svg";
 
 const STATUS_STYLES: Record<ProjectStatus, string> = {
   COMPLETED: "text-[#B90E0A]",
-  // literal orange-400 value; palette var was overridden to a stale value in compiled CSS
-  "IN-PROGRESS": "text-[#fb923c]",
+  "IN-PROGRESS": "text-green-400",
 };
 
 export function ProjectGrid({
