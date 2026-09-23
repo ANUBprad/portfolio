@@ -6,6 +6,7 @@ import {
   siGit,
   siGithub,
   siGithubactions,
+  siHuggingface,
   siJavascript,
   siJupyter,
   siLangchain,
@@ -16,6 +17,8 @@ import {
   siNumpy,
   siOllama,
   siOpencv,
+  siOpencode,
+  siOpenjdk,
   siPandas,
   siPostgresql,
   siPytest,
@@ -28,21 +31,19 @@ import {
   siTemporal,
   siTensorflow,
   siTypescript,
-  siHuggingface,
-  siSqlite,
 } from "simple-icons";
 import SectionCard from "./section-card";
-import { AWSCloudIcon, BrandIcon, JavaCupIcon, TerminalGlyphIcon } from "./icons";
+import { AWSMarkIcon, BrandIcon, DatabaseGlyphIcon, TerminalGlyphIcon } from "./icons";
 
 type Skill = {
   name: string;
   icon?: { path: string; hex: string };
-  glyph?: "java" | "code" | "aws";
+  glyph?: "code" | "aws" | "database";
 };
 
 const DATA: Skill[] = [
   { name: "Python", icon: siPython },
-  { name: "Java", glyph: "java" },
+  { name: "Java", icon: siOpenjdk },
   { name: "JavaScript", icon: siJavascript },
   { name: "TypeScript", icon: siTypescript },
   { name: "Rust", icon: siRust },
@@ -55,7 +56,7 @@ const DATA: Skill[] = [
   { name: "Pandas", icon: siPandas },
   { name: "LangChain", icon: siLangchain },
   { name: "LangGraph", icon: siLanggraph },
-  { name: "Transformers", glyph: "code" },
+  { name: "Transformers", icon: siHuggingface },
   { name: "Hugging Face", icon: siHuggingface },
   { name: "MLflow", icon: siMlflow },
   { name: "OpenCV", icon: siOpencv },
@@ -63,7 +64,7 @@ const DATA: Skill[] = [
   { name: "Next.js", icon: siNextdotjs },
   { name: "Streamlit", icon: siStreamlit },
   { name: "PostgreSQL", icon: siPostgresql },
-  { name: "SQL", icon: siSqlite },
+  { name: "SQL", glyph: "database" },
   { name: "Redis", icon: siRedis },
   { name: "Temporal", icon: siTemporal },
   { name: "Docker", icon: siDocker },
@@ -76,7 +77,7 @@ const DATA: Skill[] = [
   { name: "pytest", icon: siPytest },
   { name: "Ollama", icon: siOllama },
   { name: "Jupyter", icon: siJupyter },
-  { name: "OpenCode", glyph: "code" },
+  { name: "OpenCode", icon: siOpencode },
 ];
 
 const byName = (name: string) => DATA.find((s) => s.name === name)!;
@@ -148,10 +149,10 @@ function ChipIcon({ skill }: { skill: Skill }) {
         className="size-4 shrink-0"
       />
     );
-  if (skill.glyph === "java")
-    return <JavaCupIcon className="size-4 shrink-0" />;
   if (skill.glyph === "aws")
-    return <AWSCloudIcon className="size-4 shrink-0" />;
+    return <AWSMarkIcon className="h-4 w-auto shrink-0" />;
+  if (skill.glyph === "database")
+    return <DatabaseGlyphIcon className="size-4 shrink-0" />;
   return <TerminalGlyphIcon className="size-4 shrink-0" />;
 }
 

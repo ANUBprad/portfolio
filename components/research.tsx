@@ -77,7 +77,7 @@ export default function Research() {
 
         {/* Research summary */}
         <div className="relative mb-4 border-l border-dotted border-neutral-800/70 pl-3">
-          <p className="font-sans text-[11px] leading-relaxed text-neutral-400 sm:text-xs">
+          <p className="font-sans text-[11px] leading-relaxed text-neutral-400 sm:text-xs text-justify [text-align-last:left]">
             Benchmarks small language models for domain-specific question
             answering. Compares Phi-3-mini, Mistral-7B, and Gemma-2 on SQuAD v2
             using Exact Match and F1 evaluation, while examining inference time
@@ -95,7 +95,7 @@ export default function Research() {
               <span className="font-mono text-[10px] font-semibold text-neutral-600">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <p className="text-[11px] leading-relaxed text-neutral-400 group-hover/point:text-neutral-300">
+              <p className="text-[11px] leading-relaxed text-neutral-400 text-justify [text-align-last:left] group-hover/point:text-neutral-300">
                 {point.text}
               </p>
             </div>

@@ -34,7 +34,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
               ) : null}
             </div>
             {project.description ? (
-              <p className="line-clamp-4 text-[11px] leading-relaxed text-neutral-400">
+              <p className="line-clamp-4 text-[11px] leading-relaxed text-neutral-400 text-justify [text-align-last:left]">
                 {project.description}
               </p>
             ) : null}

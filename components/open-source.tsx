@@ -80,7 +80,7 @@ export default function OpenSource() {
               <span className="font-mono text-[10px] font-medium text-neutral-500">
                 {c.area}
               </span>
-              <p className="text-[11px] leading-relaxed text-neutral-400">
+              <p className="text-[11px] leading-relaxed text-neutral-400 text-justify [text-align-last:left]">
                 {c.impact}
               </p>
               <div className="flex flex-wrap gap-1.5 mt-1">

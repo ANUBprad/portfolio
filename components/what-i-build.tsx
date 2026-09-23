@@ -40,7 +40,7 @@ export default function WhatIDo() {
                 <h3 className="font-sans text-xs font-bold tracking-tight text-heading sm:text-sm">
                   {item.title}
                 </h3>
-                <p className="text-[11px] leading-relaxed text-neutral-400">
+                <p className="text-[11px] leading-relaxed text-neutral-400 text-justify [text-align-last:left]">
                   {item.text}
                 </p>
               </div>

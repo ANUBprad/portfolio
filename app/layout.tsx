@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist_Mono } from "next/font/google";
+import WelcomeIntro from "@/components/welcome-intro";
 import "./globals.css";
 
 const geistMono = Geist_Mono({
@@ -25,6 +26,7 @@ export default function RootLayout({
       className={`${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <WelcomeIntro />
         {children}
       </body>
     </html>

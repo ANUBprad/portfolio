@@ -13,12 +13,10 @@ import SectionReveal from "@/components/section-reveal";
 import Skills from "@/components/skills";
 import Stars from "@/components/stars";
 import WhatIDo from "@/components/what-i-build";
-import WelcomeIntro from "@/components/welcome-intro";
 
 export default function Home() {
   return (
     <main className="bg-background font-sans text-neutral-100 relative min-h-screen flex-1 overflow-x-clip py-6 sm:py-10">
-      <WelcomeIntro />
       <Stars />
       <div className="relative z-10 mx-auto flex max-w-5xl justify-center px-3 sm:px-5">
         <div className="flex w-full max-w-2xl flex-col gap-5">

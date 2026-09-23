@@ -73,7 +73,7 @@ export default function Experience() {
               {job.points.map((point) => (
                 <li
                   key={point}
-                  className="flex gap-2 text-[11px] leading-relaxed text-neutral-400"
+                  className="flex gap-2 text-[11px] leading-relaxed text-neutral-400 text-justify [text-align-last:left]"
                 >
                   <span aria-hidden="true" className="shrink-0 select-none">
                     -

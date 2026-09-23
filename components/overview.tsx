@@ -35,7 +35,7 @@ export default function Overview() {
   return (
     <SectionCard>
       <div className="flex flex-col gap-4 px-4 py-4 sm:px-5">
-        <p className="font-sans text-xs leading-relaxed text-neutral-400 sm:text-sm text-justify max-sm:text-left">
+        <p className="font-sans text-xs leading-relaxed text-neutral-400 sm:text-sm text-justify [text-align-last:left]">
           AI Engineer focused on building reliable intelligent systems across LLM
           applications, RAG, evaluation, production ML, cloud platforms, and
           developer tooling. I work at the intersection of AI systems and software
