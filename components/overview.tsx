@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { siGithub, siLeetcode, siX } from "simple-icons";
 import type { ComponentProps, ReactElement } from "react";
 import SectionCard from "./section-card";
@@ -50,6 +51,13 @@ export default function Overview() {
             <IconAction key={label} label={label} />
           ))}
         </div>
+        <Link
+          href="/me"
+          className="font-mono inline-flex items-center justify-center gap-1.5 self-center rounded-lg border border-dotted border-neutral-950/40 bg-[#B90E0A] px-5 py-2.5 text-xs text-neutral-100 transition-colors hover:bg-[#a60c09] hover:border-neutral-100/60 sm:text-sm"
+        >
+          More about me
+          <span aria-hidden="true">&rarr;</span>
+        </Link>
       </div>
     </SectionCard>
   );

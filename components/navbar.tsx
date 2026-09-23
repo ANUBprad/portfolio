@@ -23,17 +23,6 @@ export default function Navbar({ activePage = "home" }: NavbarProps) {
         >
           HOME
         </Link>
-
-        <Link
-          href="/me"
-          className={
-            activePage === "me"
-              ? "font-semibold text-neutral-100 underline decoration-neutral-100 underline-offset-4 decoration-2"
-              : "text-neutral-400 transition-colors hover:text-neutral-200"
-          }
-        >
-          ME
-        </Link>
       </nav>
     </DottedSection>
   );
