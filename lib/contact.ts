@@ -30,4 +30,9 @@ export const CONTACT: Contact[] = [
     value: "leetcode.com/u/Anubhab25",
     href: "https://leetcode.com/u/Anubhab25/",
   },
+  {
+    label: "Resume",
+    value: "MAIN_RESUME.pdf",
+    href: "/MAIN_RESUME.pdf",
+  },
 ];

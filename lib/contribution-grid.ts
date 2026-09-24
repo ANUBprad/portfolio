@@ -25,7 +25,7 @@ export const MONTHS = [
 export const DAY_MS = 86400000;
 
 // Grayscale in dark mode; warm cream tones in light mode (both resolve via
-// theme-mapped neutral tokens), shared by the GitHub and LeetCode grids.
+// theme-mapped neutral tokens), used by the GitHub grid.
 export const LEVEL_CLASSES = [
   "bg-neutral-800/30",
   "bg-neutral-800",
@@ -91,36 +91,4 @@ export function buildWeeks(contribs: ContributionDay[]): GridWeek[] {
   }
 
   return [...byWeek.keys()].sort().map((key) => byWeek.get(key)!);
-}
-
-// Fill the rolling one-year window so every date is a cell, not just active
-// days. activeDays may be missing days with zero activity; those become 0.
-export function fullYearDays(
-  activeDays: { date: string; count: number }[],
-): ContributionDay[] {
-  const byDate = new Map(activeDays.map((d) => [d.date, d.count]));
-  const [startKey] = last365Range();
-  const start = Date.parse(`${startKey}T00:00:00Z`);
-  const out: ContributionDay[] = [];
-  for (let i = 0; i < 365; i++) {
-    const date = new Date(start + i * DAY_MS).toISOString().slice(0, 10);
-    out.push({ date, count: byDate.get(date) ?? 0, level: 0 });
-  }
-  return out;
-}
-
-// Adaptive 1..4 intensity by percentile of the positive counts, so the scale
-// follows the data instead of a hardcoded band (ponytail: fine for one user;
-// if aggregate views appear, compute levels server-side).
-export function intensityLevels(days: ContributionDay[]): Map<number, number> {
-  const positive = days
-    .map((d) => d.count)
-    .filter((c) => c > 0)
-    .sort((a, b) => a - b);
-  const levels = new Map<number, number>([[0, 0]]);
-  positive.forEach((count, i) => {
-    const rank = positive.length > 1 ? i / (positive.length - 1) : 1;
-    levels.set(count, Math.max(1, Math.min(4, Math.round(rank * 3) + 1)));
-  });
-  return levels;
 }

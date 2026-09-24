@@ -130,46 +130,32 @@ const ROW_FOUR = [
   "OpenCode",
 ].map(byName);
 
-function normalizeHex(hex: string): string {
-  const n = parseInt(hex, 16);
-  const lum =
-    (0.2126 * ((n >> 16) & 255) +
-      0.7152 * ((n >> 8) & 255) +
-      0.0722 * (n & 255)) /
-    255;
-  return lum < 0.24 ? "var(--logo-neu)" : `#${hex}`;
-}
-
 function ChipIcon({ skill }: { skill: Skill }) {
-  if (skill.icon)
-    return (
-      <BrandIcon
-        icon={skill.icon}
-        color={normalizeHex(skill.icon.hex)}
-        className="size-4 shrink-0"
-      />
-    );
-  if (skill.glyph === "aws")
-    return <AWSMarkIcon className="h-4 w-auto shrink-0" />;
+  if (skill.icon) return <BrandIcon icon={skill.icon} className="size-5 shrink-0" />;
+  if (skill.glyph === "aws") return <AWSMarkIcon className="h-5 w-auto shrink-0" />;
   if (skill.glyph === "database")
-    return <DatabaseGlyphIcon className="size-4 shrink-0" />;
-  return <TerminalGlyphIcon className="size-4 shrink-0" />;
+    return <DatabaseGlyphIcon className="size-5 shrink-0" />;
+  return <TerminalGlyphIcon className="size-5 shrink-0" />;
 }
 
 function Chip({ skill }: { skill: Skill }) {
   return (
-    <li className="flex shrink-0 flex-col items-center gap-1 rounded border border-dotted border-neutral-800 bg-neutral-900/40 px-3 py-2 font-mono text-[10px] text-neutral-300">
-      <ChipIcon skill={skill} />
-      <span className="whitespace-nowrap">{skill.name}</span>
+    <li className="group flex shrink-0 flex-col items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.015] px-3 py-2.5 font-mono text-[10px] transition duration-300 hover:-translate-y-0.5 hover:border-white/25">
+      <div className="flex size-9 items-center justify-center text-neutral-300 [filter:drop-shadow(0_0_1px_rgba(255,255,255,0.55))] transition duration-300 group-hover:text-neutral-100 group-hover:[filter:drop-shadow(0_0_2px_rgba(255,255,255,0.85))]">
+        <ChipIcon skill={skill} />
+      </div>
+      <span className="whitespace-nowrap text-neutral-400 transition-colors duration-300 group-hover:text-neutral-200">
+        {skill.name}
+      </span>
     </li>
   );
 }
 
 function Row({ items, direction }: { items: Skill[]; direction: "left" | "right" }) {
-  const track = (key: string) => (
+  const track = (key: string, className = "") => (
     <ul
       key={key}
-      className="flex w-max shrink-0 items-center gap-3 pr-3"
+      className={`flex w-max shrink-0 items-center gap-3 pr-3 ${className}`}
     >
       {items.map((skill) => (
         <Chip key={`${skill.name}-${key}`} skill={skill} />
@@ -177,16 +163,16 @@ function Row({ items, direction }: { items: Skill[]; direction: "left" | "right"
     </ul>
   );
   return (
-    <div className="flex w-full overflow-hidden">
+    <div className="flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] motion-reduce:overflow-x-auto motion-reduce:[mask-image:none]">
       <div
         className={`flex w-max shrink-0 ${
           direction === "right"
             ? "animate-[marquee-right_36s_linear_infinite]"
             : "animate-[marquee-left_44s_linear_infinite]"
-        } hover:[animation-play-state:paused]`}
+        } hover:[animation-play-state:paused] motion-reduce:[animation:none]`}
       >
         {track("a")}
-        {track("b")}
+        {track("b", "motion-reduce:hidden")}
       </div>
     </div>
   );

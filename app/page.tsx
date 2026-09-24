@@ -3,7 +3,6 @@ import Experience from "@/components/experience";
 import BhagavadGita from "@/components/bhagavad-gita";
 import GitHubActivity from "@/components/github-activity";
 import Hero from "@/components/hero";
-import LeetCodeActivity from "@/components/leetcode-activity";
 import Navbar from "@/components/navbar";
 import OpenSource from "@/components/open-source";
 import Overview from "@/components/overview";
@@ -95,16 +94,6 @@ export default function Home() {
           <DottedSection className="px-2 sm:px-3">
             <SectionReveal>
               <GitHubActivity />
-            </SectionReveal>
-          </DottedSection>
-          <DottedSection
-            id="leetcode"
-            title="LEETCODE ACTIVITY"
-            className="flex items-center px-3 py-2 sm:px-4"
-          />
-          <DottedSection className="px-2 sm:px-3">
-            <SectionReveal>
-              <LeetCodeActivity />
             </SectionReveal>
           </DottedSection>
           <BhagavadGita />

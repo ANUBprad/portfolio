@@ -3,28 +3,28 @@ import { siGithub, siLeetcode, siX } from "simple-icons";
 import type { ComponentProps, ReactElement } from "react";
 import SectionCard from "./section-card";
 import { CONTACT } from "@/lib/contact";
-import { BrandIcon, LinkedInIcon } from "./icons";
+import { BrandIcon, DocumentIcon, LinkedInIcon } from "./icons";
 
 const ICONS: Record<string, (props: ComponentProps<"svg">) => ReactElement> = {
   GitHub: (props) => <BrandIcon icon={siGithub} {...props} />,
   LinkedIn: LinkedInIcon,
   X: (props) => <BrandIcon icon={siX} {...props} />,
   LeetCode: (props) => <BrandIcon icon={siLeetcode} {...props} />,
+  Resume: (props) => <DocumentIcon {...props} />,
 };
 
-const ORDER = ["GitHub", "X", "LinkedIn", "LeetCode"];
+const ORDER = ["GitHub", "X", "Resume", "LinkedIn", "LeetCode"];
 
 function IconAction({ label }: { label: string }) {
   const row = CONTACT.find((c) => c.label === label);
   if (!row) return null;
   const Icon = ICONS[label];
-  const external = row.href.startsWith("http");
   return (
     <a
       href={row.href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
-      aria-label={`${label}${external ? " (opens in a new tab)" : ""}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${label} (opens in a new tab)`}
       className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-dotted border-neutral-800 bg-neutral-900/40 text-neutral-400 transition-colors hover:border-neutral-600 hover:text-neutral-100 focus-visible:text-neutral-100"
     >
       <Icon className="size-4" />
